@@ -12,7 +12,11 @@ function gatherFormDataAndCreatePrompt(form) {
     }
 
     const prompt = `Korzystając z dostarczonej bazy danych wyceń ${form.dataset.name} o podanych parametrach, a w odpowiedzi podaj samą kwotę, przy odpowiedzi do kwoty dodaj napis "zł" bez dodatkowego tekstu. Na podstawie podanych parametrów ${form.dataset.name}: ${promptParts.join(', ')}`;
-    return { prompt, telephone };
+    return {
+        prompt: prompt,
+        telephone: telephone,
+        params: promptParts.join(', ')
+    };
 }
 
 function handleFormSubmit(event) {
@@ -32,12 +36,12 @@ function handleFormSubmit(event) {
 
     resultComponent.scrollIntoView({behavior: "smooth"});
 
-    const { prompt, telephone } = gatherFormDataAndCreatePrompt(form);
+    const { prompt, telephone, params } = gatherFormDataAndCreatePrompt(form);
 
     fetch("https://hook.eu2.make.com/q3u2ecfhwqoansibaxenwnvilut7jd9l", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({prompt, telephone, max_tokens: 64}),
+        body: JSON.stringify({prompt, telephone, params, max_tokens: 64}),
     })
         .then(response => response.text())
         .then(result => {
