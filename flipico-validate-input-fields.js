@@ -117,7 +117,7 @@
                         if (invalidInputs.length > 0) {
                             var firstInvalidInput = invalidInputs[0];
                             alert(`Wprowadź poprawny ${firstInvalidInput.type}.`);
-                            firstInvalidInput.focus();
+                            //firstInvalidInput.focus();
                         }
                     }
                 });
