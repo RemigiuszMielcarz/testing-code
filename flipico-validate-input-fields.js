@@ -98,13 +98,11 @@
             forms.forEach(function(form) {
                 form.addEventListener('submit', function(event) {
                     var isFormValid = true;
-                    var invalidInputs = [];
 
                     inputs.forEach(function(input) {
                         if (['tel', 'email', 'password', 'number', 'url'].includes(input.type)) {
                             if (!validateInput(input)) {
                                 isFormValid = false;
-                                invalidInputs.push(input); // Zbierz wszystkie nieprawidłowe pola
                             }
                         }
                     });
@@ -112,13 +110,6 @@
                     if (!isFormValid) {
                         event.preventDefault();
                         event.stopPropagation();
-
-                        // Skieruj fokus na pierwsze nieprawidłowe pole
-                        if (invalidInputs.length > 0) {
-                            var firstInvalidInput = invalidInputs[0];
-                            alert(`Wprowadź poprawny ${firstInvalidInput.type}.`);
-                            //firstInvalidInput.focus();
-                        }
                     }
                 });
             });
